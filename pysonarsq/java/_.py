@@ -220,23 +220,23 @@ class _(object):
         sec = sec % 60
         hr = min / 60
         min = min % 60
-        return "%s:%s:%s" % (hr,min,sec)
+        return "%02d:%02d:%02d" % (hr,min,sec)
 
     @classmethod
     def formatNumber(cls, n, length):
-        """ generated source for method formatNumber """
         if length == 0:
             length = 1
+            
         if isinstance(n, (int, )):
-            return '%s length' % int(n)
+            return ('%0' + str(length) + 'd') % int(n)
         elif isinstance(n, (long, )):
-            return '%s length' % long(n)            
+            return ('%0' + str(length) + 'd') % long(n)
         else:
-            return '%s length' % n            
+            return ('%0' + str(length) + 's') % long(n)            
 
     @classmethod
     def deleteDirectory(cls, directory):
-        """ generated source for method deleteDirectory """
+
         if directory.exists():
             if files is not None:
                 for f in files:

@@ -20,7 +20,6 @@ class FancyProgress(object):
     segSize = long()
 
     def __init__(self, total, width):
-        """ generated source for method __init__ """
         self.startTime = int(round(time.time() * 1000))
         self.lastTickTime = int(round(time.time() * 1000))
         self.lastCount = 0
@@ -34,7 +33,6 @@ class FancyProgress(object):
 
     #@overloaded
     def tick(self, n=1):
-        """ generated source for method tick """
         self.count += n
         if self.count > self.total:
             self.total = self.count

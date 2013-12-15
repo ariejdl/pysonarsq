@@ -253,7 +253,6 @@ class PythonParser(object):
         if type_ == "Attribute":
             value = self.deJson(_map.get("value"));
             attr = self.deJson(_map.get("attr_name"));        
-            assert isinstance(attr, Name)
             if attr is None:
                 attr = Name(str(_map.get("attr")))
             return Attribute(value, attr, start, end)

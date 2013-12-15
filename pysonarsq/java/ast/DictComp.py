@@ -29,7 +29,7 @@ class DictComp(Node):
     #      * comprehension.
     #      
     def resolve(self, s):
-        resolveList(self.generators, s)
+        self.resolveList(self.generators, s)
         keyType = self.resolveExpr(self.key, s)
         valueType = self.resolveExpr(self.value, s)
         return DictType(keyType, valueType)
