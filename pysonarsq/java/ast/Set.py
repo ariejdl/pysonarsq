@@ -15,29 +15,24 @@ from java.util import List
 from Sequence import Sequence
 
 class Set(Sequence):
-    """ generated source for class Set """
     def __init__(self, elts, start, end):
-        """ generated source for method __init__ """
-        super(Set, self).__init__(start, end)
+        super(Set, self).__init__(elts, start, end)
 
     def resolve(self, s):
-        """ generated source for method resolve """
-        if len(elts) == 0:
+        if len(self.elts) == 0:
             return ListType()
         listType = None
-        for elt in elts:
+        for elt in self.elts:
             if listType is None:
-                listType = ListType(resolveExpr(elt, s))
+                listType = ListType(self.resolveExpr(elt, s))
             else:
-                listType.add(resolveExpr(elt, s))
+                listType.add(self.resolveExpr(elt, s))
         return listType
 
     def __str__(self):
-        """ generated source for method toString """
-        return "<List:" + start + ":" + elts + ">"
+        return "<List:" + str(self.start) + ":" + str(self.elts) + ">"
 
     def visit(self, v):
-        """ generated source for method visit """
         if v.visit(self):
-            self.visitNodeList(elts, v)
+            self.visitNodeList(self.elts, v)
 

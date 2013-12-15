@@ -114,7 +114,7 @@ class _(object):
         if not os.path.exists(_.parentFile(path)):
             os.mkdir(_.parentFile(path))
         with open(path, 'wb') as f:
-            f.write(contents)
+            f.write(contents.encode('utf-8'))
 
     @classmethod
     #@overloaded

@@ -171,6 +171,11 @@ class Linker(object):
 
     def addSemanticStyle(self, binding, type_):
         path = binding.getFile()
+        
+        if binding.getStart() is None or binding.getEnd() is None:
+            print('invalid binding: ' + str(binding))
+            return
+            
         if path is not None:
             self.addFileStyle(path, StyleRun(type_, binding.getStart(), binding.getLength()))
 

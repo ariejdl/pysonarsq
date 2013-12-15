@@ -77,12 +77,14 @@ class ListType(Type):
         sb = []
         num = ctr.visit(self)
         if num is not None:
-            sb.append("#").append(num)
+            sb.append("#")
+            sb.append(num)
         else:
             ctr.push(self)
             sb.append("[")
             sb.append(self.getElementType().printType(ctr))
             sb.append("]")
             ctr.pop(self)
-        return "".join(sb)
+            
+        return "".join(map(str, sb)).encode('utf-8')
 

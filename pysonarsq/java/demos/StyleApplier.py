@@ -152,10 +152,10 @@ class StyleApplier(object):
             
         if self.sourceOffset < len(self.source):
             self.copySource(self.sourceOffset, len(self.source))
-        return ''.join(self.buffer_)
+            
+        return u''.join(map(lambda s: s.encode('utf-8'), self.buffer_))
 
     def copySource(self, begin, end):
-        """ generated source for method copySource """
         inner = self.source[0:begin] if (end == -1) else self.source[begin:end]
         src = self.escape(inner);
         self.buffer_.append(src)

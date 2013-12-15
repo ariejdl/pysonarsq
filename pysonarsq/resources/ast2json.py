@@ -38,16 +38,30 @@ def parse_dump(filename, output, end_mark):
         f = open(end_mark, "w")
         f.close()
 
+import codecs
 
 def parse_file(filename):
-    f = open(filename)
-    lines = f.read()
+    try:
+        f = codecs.open(filename, 'r', 'utf-8')
+        lines = f.read()
+    except UnicodeDecodeError as e:
+        f = codecs.open(filename, 'r', 'latin')
+        lines = f.read()
+        
+    
     f.close()
     return parse_string(lines, filename)
 
 
 def parse_string(string, filename=None):
-    tree = ast.parse(string)
+    tree = None
+    try:
+        tree = ast.parse(string)
+    except SyntaxError as e:
+        from types import ModuleType
+        print('Error parsing tree: ' + str(e))
+        tree = ModuleType('bad module')
+        
     improve_ast(tree, string)
     if filename:
         tree.filename = filename

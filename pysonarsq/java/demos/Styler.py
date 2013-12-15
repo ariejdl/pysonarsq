@@ -113,7 +113,8 @@ class Styler(DefaultNodeVisitor):
 
     #@addStyle.register(object, Node, StyleRun.Type)
     def addStyle2(self, e, type_):
-        self.addStyle(e, e.start, e.end - e.start, type_)
+        if e.start is not None and e.end is not None:
+            self.addStyle(e, e.start, e.end - e.start, type_)
 
     #@addStyle.register(object, int, int, StyleRun.Type)
     def addStyle3(self, begin, len, type_):

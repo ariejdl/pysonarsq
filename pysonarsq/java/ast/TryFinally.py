@@ -23,20 +23,18 @@ class TryFinally(Node):
 
     def resolve(self, s):
         from pysonarsq.java.Analyzer import Analyzer
-        """ generated source for method resolve """
+
         tFinal = Analyzer.self.builtins.unknown
         if self.body is not None:
             self.resolveExpr(self.body, s)
         if self.finalbody is not None:
-            tFinal = resolveExpr(self.finalbody, s)
+            tFinal = self.resolveExpr(self.finalbody, s)
         return tFinal
 
     def __str__(self):
-        """ generated source for method toString """
-        return "<TryFinally:" + self.body + ":" + self.finalbody + ">"
+        return "<TryFinally:" + str(self.body) + ":" + str(self.finalbody) + ">"
 
     def visit(self, v):
-        """ generated source for method visit """
         if v.visit(self):
             self.visitNode(self.body, v)
             self.visitNode(self.finalbody, v)

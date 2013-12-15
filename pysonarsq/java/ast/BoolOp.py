@@ -24,11 +24,11 @@ class BoolOp(Node):
     def resolve(self, s):
         from pysonarsq.java.Analyzer import Analyzer
         if self.op.id == "and":
-            for e in values:
-                last = resolveExpr(e, s)
+            for e in self.values:
+                last = self.resolveExpr(e, s)
             return (Analyzer.self.builtins.unknown if last is None else last)
         #  OR
-        return resolveListAsUnion(self.values, s)
+        return self.resolveListAsUnion(self.values, s)
 
     def __str__(self):
         return "<BoolOp:" + str(self.op) + ":" + str(self.values) + ">"

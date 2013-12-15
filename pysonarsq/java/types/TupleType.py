@@ -27,14 +27,15 @@ class TupleType(Type):
     #@__init__.register(object, A)
     def __init__(self, *types):
         self.initsimple()
-        if types is not None:
-            if hasattr(types, '__len__'):
+        
+        if types != ():
+            if len(types) == 1:
+                if isinstance(types[0], list):
+                    self.eltTypes += types[0]
+            elif len(types):
                 self.eltTypes += list(types)
-            else:
-                self.eltTypes.append(types)
 
     def setElementTypes(self, eltTypes):
-        """ generated source for method setElementTypes """
         self.eltTypes = eltTypes
 
     def getElementTypes(self):
@@ -47,9 +48,10 @@ class TupleType(Type):
         return self.eltTypes[i]
 
     def toListType(self):
-        """ generated source for method toListType """
+        from ListType import ListType
+
         t = ListType()
-        for e in eltTypes:
+        for e in self.eltTypes:
             t.add(e)
         return t
 

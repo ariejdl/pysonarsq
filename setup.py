@@ -13,6 +13,13 @@ setup(
     description = ("a port of the project PySonar2 from Java to Python"),
     license = "same as PySonar2 license",
     keywords = "python static analyzer analyser java",
-    packages=['pysonarsq', 'tests'],
+    packages=[
+        'pysonarsq',
+        'pysonarsq.java',
+        'pysonarsq.java.ast',
+        'pysonarsq.java.types',        
+        'pysonarsq.java.demos',        
+        'pysonarsq.resources',
+        'tests'],
     long_description=read('README.md'),
 )

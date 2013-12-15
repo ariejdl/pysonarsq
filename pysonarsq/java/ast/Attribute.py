@@ -15,7 +15,6 @@ from Node import Node
 from Name import Name
 
 class Attribute(Node):
-    """ generated source for class Attribute """
     def __init__(self, target, attr, start, end):
         super(Attribute, self).__init__(start, end)
         
@@ -24,17 +23,15 @@ class Attribute(Node):
         self.addChildren(target, attr)
 
     def getAttributeName(self):
-        """ generated source for method getAttributeName """
         return self.attr.id
 
     def getAttr(self):
-        """ generated source for method getAttr """
         return self.attr
 
     def setAttr(self, s, v):
-        """ generated source for method setAttr """
         targetType = self.resolveExpr(self.target, s)
         if targetType.isUnionType():
+            types = targetType.asUnionType().getTypes();
             for tp in types:
                 self.setAttrType(tp, v)
         else:
@@ -43,7 +40,6 @@ class Attribute(Node):
     def setAttrType(self, targetType, v):
 
         from pysonarsq.java.Analyzer import Analyzer
-        """ generated source for method setAttrType """
         if targetType.isUnknownType():
             Analyzer.self.putProblem(self, "Can't set attribute for UnknownType")
             return
@@ -76,7 +72,7 @@ class Attribute(Node):
 
         bs = targetType.getTable().lookupAttr(self.attr.id)
         if bs is None:
-            Analyzer.self.putProblem(self.attr, "attribute not found in type: " + str(targetType))
+            Analyzer.self.putProblem(self.attr, "attribute not found in type: " + (str(targetType)))
             t = Analyzer.self.builtins.unknown;
             t.getTable().setPath(targetType.getTable().extendPath(self.attr.id))
             return t

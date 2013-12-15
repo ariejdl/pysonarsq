@@ -154,9 +154,9 @@ class Scope(object):
         else:
             return False
 
-    def remove(self, id):
+    def remove(self, _id):
         if self.table is not None:
-            self.table.remove(id)
+            if _id in self.table: del self.table[_id]
 
     #  create new binding and insert
     def insert(self, id, node, type_, kind):

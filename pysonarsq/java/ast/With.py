@@ -4,7 +4,6 @@
 from org.jetbrains.annotations import NotNull
 
 from pysonarsq.java.Binder import Binder
-
 from pysonarsq.java.Scope import Scope
 
 from pysonarsq.java.types.Type import Type
@@ -15,10 +14,8 @@ from Node import Node
 from Block import Block
 
 class With(Node):
-    """ generated source for class With """
 
     def __init__(self, items, body, start, end):
-        """ generated source for method __init__ """
         super(With, self).__init__(start, end)
         self.items = items
         self.body = body
@@ -26,20 +23,18 @@ class With(Node):
         self.addChildren(body)
 
     def resolve(self, s):
-        """ generated source for method resolve """
-        for item in items:
+        for item in self.items:
             if item.optional_vars is not None:
+                val = self.resolveExpr(item.context_expr, s);
                 Binder.bind(s, item.optional_vars, val)
-        return resolveExpr(self.body, s)
+        return self.resolveExpr(self.body, s)
 
     def __str__(self):
-        """ generated source for method toString """
-        return "<With:" + self.items + ":" + self.body + ">"
+        return "<With:" + str(self.items) + ":" + str(self.body) + ">"
 
     def visit(self, v):
-        """ generated source for method visit """
         if v.visit(self):
-            for item in items:
+            for item in self.items:
                 self.visitNode(item, v)
             self.visitNode(self.body, v)
 

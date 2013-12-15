@@ -18,7 +18,6 @@ from Node import Node
 class Assign(Node):
 
     def __init__(self, targets, rvalue, start, end):
-        """ generated source for method __init__ """
         super(Assign, self).__init__(start, end)
         self.targets = targets
         self.rvalue = rvalue
@@ -26,12 +25,11 @@ class Assign(Node):
         self.addChildren(rvalue)
 
     def bindsName(self):
-        """ generated source for method bindsName """
         return True
 
     def resolve(self, s):
         from pysonarsq.java.Analyzer import Analyzer
-        """ generated source for method resolve """
+
         if self.rvalue is None:
             Analyzer.self.putProblem(self, "missing RHS of assignment")
         else:
@@ -44,7 +42,6 @@ class Assign(Node):
         return "<Assign:" + str(self.targets) + "=" + str(self.rvalue) + ">"
 
     def visit(self, v):
-        """ generated source for method visit """
         if v.visit(self):
             self.visitNodeList(self.targets, v)
             self.visitNode(self.rvalue, v)

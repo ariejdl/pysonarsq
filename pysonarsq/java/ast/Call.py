@@ -8,6 +8,7 @@ from org.jetbrains.annotations import Nullable
 from pysonarsq.java.types.TupleType import TupleType
 from pysonarsq.java.types.InstanceType import InstanceType
 from pysonarsq.java.types.UnionType import UnionType
+from pysonarsq.java.types.DictType import DictType
 
 
 from java.util import Set
@@ -191,13 +192,13 @@ class Call(Node):
                 else:
                     aType = Analyzer.self.builtins.unknown
                     if call is not None:
-                        Analyzer.self.putProblem(args[i], "unable to bind argument:" + args[i])
+                        Analyzer.self.putProblem(args[i], "unable to bind argument:" + str(args[i]))
             
             Binder.bind(funcTable, arg, aType, Binding.Kind.PARAMETER)
             fromType.add(aType)
 
         if fkwargs is not None:
-            if kwTypes is not None and not kwTypes.isEmpty():
+            if kwTypes is not None and len(kwTypes):
                 kwValType = UnionType.newUnion(kwTypes.values());
                 Binder.bind(funcTable, fkwargs, DictType(Analyzer.self.builtins.BaseStr, kwValType), Binding.Kind.PARAMETER)
             else:
@@ -205,7 +206,7 @@ class Call(Node):
                 
         if fvarargs is not None:
             if len(aTypes) > len(args):
-                starType = TupleType(aTypes.subList(args.size(), aTypes.size()));
+                starType = TupleType(aTypes[len(args) : len(aTypes)]);
                 Binder.bind(funcTable, fvarargs, starType, Binding.Kind.PARAMETER)
             else:
                 Binder.bind(funcTable, fvarargs, Analyzer.self.builtins.unknown, Binding.Kind.PARAMETER)

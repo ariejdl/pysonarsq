@@ -38,12 +38,12 @@ class Binder(object):
         if isinstance(target, list):
             xs = target
             if rvalue.isTupleType():
+                vs = rvalue.asTupleType().getElementTypes()
                 if len(xs) != len(vs):
-                    reportUnpackMismatch(xs, len(vs))
+                    cls.reportUnpackMismatch(xs, len(vs))
                 else:
-                    while i < len(xs):
-                        cls.bind(s, xs.get(i), vs.get(i), kind)
-                        i += 1
+                    for i in range(len(xs)):
+                        cls.bind(s, xs[i], vs[i], kind)
             elif rvalue.isListType():
                 cls.bind(s, xs, rvalue.asListType().toTupleType(len(xs)), kind)
             elif rvalue.isDictType():
@@ -52,7 +52,8 @@ class Binder(object):
                 for x in xs:
                     cls.bind(s, x, Analyzer.self.builtins.unknown, kind)
             else:
-                Analyzer.self.putProblem(xs.get(0).getFile(), xs.get(0).start, xs.get(len(xs) - 1).end, "unpacking non-iterable: " + rvalue)
+                Analyzer.self.putProblem(xs[0].getFile(), xs[0].start, xs[len(xs) - 1].end,
+                                        "unpacking non-iterable: " + str(rvalue))
             return
         
 
@@ -113,13 +114,16 @@ class Binder(object):
     def reportUnpackMismatch(cls, xs, vsize):
 
         xsize = len(xs)
-        beg = xs.get(0).start
-        end = xs.get(len(xs) - 1).end
+        beg = xs[0].start
+        end = xs[len(xs) - 1].end
         diff = xsize - vsize
-        msg = str()
+        msg = ''
+        
         if diff > 0:
-            msg = "ValueError: need more than " + vsize + " values to unpack"
+            msg = "ValueError: need more than " + str(vsize) + " values to unpack"
         else:
             msg = "ValueError: too many values to unpack"
-        Analyzer.self.putProblem(xs.get(0).getFile(), beg, end, msg)
+            
+        from pysonarsq.java.Analyzer import Analyzer
+        Analyzer.self.putProblem(xs[0].getFile(), beg, end, msg)
 

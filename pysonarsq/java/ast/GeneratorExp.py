@@ -28,16 +28,13 @@ class GeneratorExp(Node):
     #      * This is wrong, but we "respect" this bug here.
     #      
     def resolve(self, s):
-        """ generated source for method resolve """
-        resolveList(self.generators, s)
-        return ListType(resolveExpr(self.elt, s))
+        self.resolveList(self.generators, s)
+        return ListType(self.resolveExpr(self.elt, s))
 
     def __str__(self):
-        """ generated source for method toString """
-        return "<GeneratorExp:" + start + ":" + self.elt + ">"
+        return "<GeneratorExp:" + str(self.start) + ":" + str(self.elt) + ">"
 
     def visit(self, v):
-        """ generated source for method visit """
         if v.visit(self):
             self.visitNode(self.elt, v)
             self.visitNodeList(self.generators, v)

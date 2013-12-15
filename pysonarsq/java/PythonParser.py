@@ -104,7 +104,6 @@ class PythonParser(object):
     TIMEOUT = 5000
 
     def __init__(self):
-        """ generated source for method __init__ """
         tmpDir = _.getSystemTempDir()
         sid = _.newSessionId()
         self.exchangeFile = _.makePathString(tmpDir, "pysonar2", "json." + sid)
@@ -118,24 +117,20 @@ class PythonParser(object):
             _.msg("Started: " + self.PYTHON3_EXE)
 
     def close(self):
-        """ generated source for method close """
         if os.path.exists(self.pyStub): os.remove(self.pyStub)
         if os.path.exists(self.exchangeFile): os.remove(self.exchangeFile)
         if os.path.exists(self.endMark): os.remove(self.endMark)
 
     def deserialize(self, text):
-        """ generated source for method deserialize """
         return json.loads(text)
 
     def convertBlock(self, o):
-        """ generated source for method self.convertBlock """
         if o is None:
             return None
         else:
             return Block(self.convertList(o), 0, 0)
 
     def convertList(self, o):
-        """ generated source for method self.convertList """
         if o is None:
             return None
         else:
@@ -503,7 +498,6 @@ class PythonParser(object):
             value = self.deJson(_map.get("value"));
             return Yield(value, start, end)
         
-        print('* unexpected AST node *', _map)
         return None
 
     def prettyJson(self, json):
@@ -511,7 +505,6 @@ class PythonParser(object):
         return json.dumps(obj, sort_keys=True, indent=4, separators=(',', ': '))
 
     def startPython(self, pythonExe):
-        """ generated source for method startPython """
         try:
             fw.write(jsonizeStr)
             fw.close()
@@ -523,7 +516,7 @@ class PythonParser(object):
 
     def parseFile(self, filename):
         from pysonarsq.java.Analyzer import Analyzer
-        """ generated source for method parseFile """
+        
         n2 = self.parseFileInner(filename, self.python2Process)
         if n2 is not None:
             return n2
@@ -534,7 +527,7 @@ class PythonParser(object):
             else:
                 return n3
         else:
-            Analyzer.self.failedToParse.append(filename)
+            Analyzer.self.failedToParse.add(filename)
             return None
 
     def parseFileInner(self, filename, pythonProcess):

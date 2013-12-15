@@ -14,10 +14,8 @@ from java.util import List
 from Node import Node
 
 class DictComp(Node):
-    """ generated source for class DictComp """
 
     def __init__(self, key, value, generators, start, end):
-        """ generated source for method __init__ """
         super(DictComp, self).__init__(start, end)
         self.key = key
         self.value = value
@@ -31,18 +29,15 @@ class DictComp(Node):
     #      * comprehension.
     #      
     def resolve(self, s):
-        """ generated source for method resolve """
         resolveList(self.generators, s)
-        keyType = resolveExpr(self.key, s)
-        valueType = resolveExpr(self.value, s)
+        keyType = self.resolveExpr(self.key, s)
+        valueType = self.resolveExpr(self.value, s)
         return DictType(keyType, valueType)
 
     def __str__(self):
-        """ generated source for method toString """
-        return "<DictComp:" + start + ":" + self.key + ">"
+        return "<DictComp:" + str(self.start) + ":" + str(self.key) + ">"
 
     def visit(self, v):
-        """ generated source for method visit """
         if v.visit(self):
             self.visitNode(self.key, v)
             self.visitNodeList(self.generators, v)

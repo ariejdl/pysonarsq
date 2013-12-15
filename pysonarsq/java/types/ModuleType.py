@@ -12,17 +12,14 @@ from Type import Type
 
 
 class ModuleType(Type):
-    """ generated source for class ModuleType """
-    file_ = str()
-    name = str()
-    qname = str()
 
     def __init__(self, name=None, file_=None, parent=None):
         from pysonarsq.java.Scope import Scope
         from pysonarsq.java.Analyzer import Analyzer
-        """ generated source for method __init__ """
+
         super(ModuleType, self).__init__()
         self.name = name
+        self.qname = ''
         self.file_ = file_
         #  null for builtin modules
         if file_ is not None:
@@ -38,6 +35,11 @@ class ModuleType(Type):
         #  null during bootstrapping of built-in types
         if Analyzer.self.builtins is not None:
             self.getTable().addSuper(Analyzer.self.builtins.BaseModule.getTable())
+            
+        if self.name is None:
+            self.name = '<NoneName>'
+        if self.qname is None:
+            self.qname = '<NoneQName>'
 
     def setFile(self, file_):
         self.file_ = file_

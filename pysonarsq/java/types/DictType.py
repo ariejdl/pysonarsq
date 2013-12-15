@@ -32,11 +32,12 @@ class DictType(Type):
         self.valueType = UnionType.union(self.valueType, val)
 
     def toTupleType(self, n):
+        from TupleType import TupleType
         ret = TupleType()
-        i = 0
-        while i < n:
+        
+        for i in range(n):
             ret.add(self.keyType)
-            i += 1
+            
         return ret
 
     def __eq__(self, other):

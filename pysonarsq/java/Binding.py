@@ -204,7 +204,7 @@ class Binding(object):
     #      * Bindings can be sorted by their location for outlining purposes.
     #      
     def compareTo(self, o):
-        return self.getStart() - (o).getStart()
+        return (self.getStart() or 0) - (o.getStart() or 0)
 
     def __str__(self):
         sb = []

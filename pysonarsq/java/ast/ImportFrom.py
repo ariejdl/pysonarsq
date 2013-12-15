@@ -25,10 +25,8 @@ from Node import Node
 #(from java.util import Map.Entry)
 
 class ImportFrom(Node):
-    """ generated source for class ImportFrom """
 
     def __init__(self, module_, names, level, start, end):
-        """ generated source for method __init__ """
         super(ImportFrom, self).__init__(start, end)
         self.module_ = module_
         self.level = level
@@ -36,12 +34,11 @@ class ImportFrom(Node):
         self.addChildren(names)
 
     def bindsName(self):
-        """ generated source for method bindsName """
         return True
 
     def resolve(self, s):
         from pysonarsq.java.Analyzer import Analyzer
-        """ generated source for method resolve """
+
         if self.module_ is None:
             return Analyzer.self.builtins.Cont
         mod = Analyzer.self.loadModule(self.module_, s)
@@ -85,15 +82,19 @@ class ImportFrom(Node):
         names = ArrayList()
         allType = mt.getTable().lookupType("__all__")
         if allType is not None and allType.isListType():
+            lt = allType.asListType();
             for o in lt.values:
                 if isinstance(o, (str, )):
-                    names.add(str(o))
+                    names.append(str(o))
         if len(names):
             for name in names:
+                b = mt.getTable().lookupLocal(name);
                 if b is not None:
                     s.update(name, b)
                 else:
-                    m2.add(Name(name))
+                    m2 = list()
+                    m2.append(Name(name))
+                    mod2 = Analyzer.self.loadModule(m2, s);
                     if mod2 is not None:
                         s.insert(name, None, mod2, Binding.Kind.VARIABLE)
         else:

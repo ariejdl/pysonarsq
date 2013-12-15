@@ -146,10 +146,11 @@ class Node(object):
     #      
     def resolveListAsUnion(self, nodes, s):
         from pysonarsq.java.Analyzer import Analyzer
-        if nodes is None or nodes.isEmpty():
+        if nodes is None or len(nodes) == 0:
             return Analyzer.self.builtins.unknown
         result = Analyzer.self.builtins.unknown
         for node in nodes:
+            nodeType = self.resolveExpr(node, s)
             result = UnionType.union(result, nodeType)
         return result
 

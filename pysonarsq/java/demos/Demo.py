@@ -126,15 +126,16 @@ class Demo(object):
     def addLineNumbers(self, source):
         result = []
         count = 1
-        for line in source.split("\n"):
-            result.append("<span class='lineno'>")
-            result.append(count)
-            result.append("</span> ")
-            result.append(line)
-            result.append("\n")
+        for line in source.split(u"\n"):
+            result.append(u"<span class='lineno'>")
+            result.append(str(count).encode('utf-8'))
+            result.append(u"</span> ")
+            result.append(line.encode('utf-8'))
+            result.append(u"\n")
+            
             count += 1
             
-        return ''.join(map(str,result))
+        return u''.join(map(lambda s: s.encode('utf-8'), result))
 
     @classmethod
     def usage(cls):
