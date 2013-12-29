@@ -39,6 +39,20 @@ from Diagnostic import Diagnostic
 import logging
 import os
 
+def try_analyze(fileOrDir, analyzer=None):
+    rootDir = _.parentFile(fileOrDir) if os.path.isfile(fileOrDir) else fileOrDir
+    rootPath = _.unifyPath(rootDir)
+
+    if analyzer is None:
+        analyzer = Analyzer()
+
+    analyzer.analyze(_.unifyPath(fileOrDir))
+    analyzer.finish()
+    analyzer.close()
+
+    return analyzer
+
+
 class Analyzer(object):
     #  global static instance of the analyzer itself
     #self = Analyzer()

@@ -39,7 +39,7 @@ class ExceptHandler(Node):
             return Analyzer.self.builtins.unknown
 
     def __str__(self):
-        return "<ExceptHandler:" + start + ":" + self.name + ":" + self.exceptionType + ">"
+        return "<ExceptHandler:" + str(self.start) + ":" + str(self.name) + ":" + str(self.exceptionType) + ">"
 
     def visit(self, v):
         if v.visit(self):

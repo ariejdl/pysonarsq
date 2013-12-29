@@ -70,7 +70,7 @@ class Name(Node):
         return isinstance(parent, (Attribute, )) and (parent).getAttr() == self
 
     def __str__(self):
-        return "<Name:" + str(self.start) + ":" + str(self.id) + ">"
+        return "<Name:" + str(self.start) + ":" + str(self.end) + ":" + str(self.id) + ">"
 
     def toDisplay(self):
         return self.id
