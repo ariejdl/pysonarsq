@@ -10,6 +10,15 @@ See [PySonar2](https://github.com/yinwang0/pysonar2)'s copyright
 ## Example Usage
 `python ./scripts/run_analyzer.py /usr/lib/python2.7 ./genned-html`
 
+or
+
+```
+git clone https://github.com/ariejdl/pysonarsq.git
+cd pysonarsq
+mkdir genned-html
+python scripts/temp_test.py tests/all.py
+```
+
 ## Remaining failing tests
 these shouldn't be hard to fix compared to already passing ones, they are less important to me, pull requests welcome.
 
